@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 const createError = require("http-errors");
 const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
-// const bcrypt = require("bcryptjs/dist/bcrypt");
+const Member = require("./models/member");
+const bcrypt = require("bcryptjs/dist/bcrypt");
 
 // Init Express
 const app = express();
@@ -32,6 +36,49 @@ const indexRouter = require("./routes/index");
 // TODO - Set up View Engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+
+// Set up passport local authentication
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    Member.findOne({ username: username }, (err, user) => {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: "Incorrect Username" });
+      }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          // Password match! User log in
+          return done(null, user);
+        } else {
+          return done(null, false, { message: "Incorrect Password" });
+        }
+      });
+    });
+  })
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  Member.findById(id, (err, member) => {
+    done(err, member);
+  });
+});
+
+// Use Passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Global Middlewares
 app.use(cors());

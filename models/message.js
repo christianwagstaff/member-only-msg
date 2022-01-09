@@ -9,7 +9,7 @@ const MessageSchema = new Schema({
   message: { type: String, required: true },
   deleted: { type: Boolean },
   deletedDate: { type: Date },
-  board: { type: Schema.Types.ObjectId, required: true },
+  board: { type: Schema.Types.ObjectId, ref: "Board", required: true },
 });
 
 module.exports = mongoose.model("Message", MessageSchema);

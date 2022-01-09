@@ -87,3 +87,49 @@ input {
     padding: 12px;
     border-radius: 12px;
 }
+
+.message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-dark);
+    padding: 12px;
+    border-radius: 12px;
+    gap: 12px;
+}
+
+.message-top {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: smaller;
+}
+
+.message-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.message-creator {
+    color: darkgrey;
+    font-size: x-small;
+}
+
+.message-board {
+    font-weight: bolder;
+}
+
+.message-title {
+    font-weight: 500;
+    font-size: medium;
+}
+
+.message-message {
+    font-weight: 300;
+}

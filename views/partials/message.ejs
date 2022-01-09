@@ -1,0 +1,24 @@
+<div class="message">
+    <div class="message-top">
+        <div class="message-board">
+            <%= message.board.formatted_name %>
+        </div>
+        <div class="message-creator">
+            Posted By - 
+            <% if (user) { %>
+                <%= message.user.name %>
+            <% } else { %>
+                Anonymous
+            <% }; %>
+                
+        </div>
+    </div>
+    <div class="message-bottom">
+        <h3 class="message-title">
+            <%= message.title %>
+        </h3>
+        <p class="message-message">
+            <%= message.message %>
+        </p>    
+    </div>
+</div>
