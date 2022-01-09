@@ -6,7 +6,7 @@ const MemberSchema = new Schema({
   name: { type: String, maxlength: 100, require: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  member: { type: Boolean, required: true },
+  activeMember: { type: Boolean, required: true },
   admin: [{ type: Schema.Types.ObjectId, ref: "Board" }],
   icon: { type: Number, required: true },
   imageLink: { type: String },

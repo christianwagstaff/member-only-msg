@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "Member", required: true },
   createdDate: { type: Date, required: true },
+  title: { type: String, required: true, maxlength: 100 },
   message: { type: String, required: true },
   deleted: { type: Boolean },
   deletedDate: { type: Date },

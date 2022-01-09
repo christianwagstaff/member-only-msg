@@ -1,0 +1,36 @@
+:root {
+    --color-light: #CCDBDC;
+    --color-med-light: #9ad1d4;
+    --color-med: #80ced7;
+    --color-med-dark: #007ea7;
+    --color-dark: #003249;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
+    padding: 12px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    background-color: var(--color-dark);
+    padding: 12px;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
