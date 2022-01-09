@@ -2,18 +2,20 @@
     <li>
         <a href="/">Home</a>
     </li>
-    <li>
-        <% if (typeof user === "undefined") { %>
-            <a href="/login">Log In</a>
-        <% } else if (user) { %>
-            <a href="/logout">Log Out</a>
-        <% } else { %>
-            <a href="/login">Log In</a>
-        <% } %>
-    </li>
-    <% if (typeof user === "undefined") { %>
+    <div class="nav-list">
         <li>
-            <a href="/signup">Sign Up</a>
+            <% if (typeof user === "undefined") { %>
+                <a href="/login">Log In</a>
+            <% } else if (user) { %>
+                <a href="/logout">Log Out</a>
+            <% } else { %>
+                <a href="/login">Log In</a>
+            <% } %>
         </li>
-    <% } %>
+        <% if (typeof user === "undefined" || !user) { %>
+            <li>
+                <a href="/signup">Sign Up</a>
+            </li>
+        <% } %>
+    </div>
 </ul>
