@@ -39,6 +39,12 @@ exports.signup = (req, res) => {
   });
 };
 
+// GET Logout
+exports.logout = (req, res) => {
+  req.logout();
+  res.redirect("/");
+};
+
 // POST Login Screen
 exports.post_login = passport.authenticate("local", {
   successRedirect: "/",
