@@ -7,11 +7,15 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs/dist/bcrypt");
 
+// Init Express
+const app = express();
+
+// If not in production mode, use dotenv to access .env file
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-require("bcryptjs");
 
+// Set up Database Connection - MongoDB
 const mongoDb = process.env.MONGODB_URI;
 const mongoOpts = {
   useUnifiedTopology: true,
@@ -20,3 +24,37 @@ const mongoOpts = {
 mongoose.connect(mongoDb, mongoOpts);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
+
+// TODO - Set up Routers
+
+// TODO - Set up View Engine
+
+// Global Middlewares
+app.use(cors());
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+// Use Public Path for static links
+app.use(express.static(path.join(__dirname, "public")));
+
+// Use Routers Initialized above
+
+// Catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  // Set Locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // Render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
+
+module.exports = app;
