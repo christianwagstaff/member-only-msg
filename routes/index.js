@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const member_controller = require("../controllers/messageController");
+const member_controller = require("../controllers/memberController");
 
 // Get Message Homepage
 router.get("/", member_controller.index);
