@@ -8,7 +8,7 @@ const MemberSchema = new Schema({
   password: { type: String, required: true },
   activeMember: { type: Boolean, required: true },
   admin: [{ type: Schema.Types.ObjectId, ref: "Board" }],
-  icon: { type: Number, required: true },
+  icon: { type: Number, required: true, min: 0, max: 5 },
   imageLink: { type: String },
   dateJoined: { type: Date, required: true },
 });

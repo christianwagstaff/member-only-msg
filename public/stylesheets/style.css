@@ -17,6 +17,7 @@ body {
 
 main {
     padding: 12px;
+    flex-grow: 1;
 }
 
 nav {
@@ -33,4 +34,19 @@ nav li {
 nav a {
     color: white;
     text-decoration: none;
+}
+
+footer {
+    background-color: var(--color-med-dark);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+footer img {
+    height: 2rem;
+    width: auto;
 }
