@@ -6,12 +6,13 @@
 </head>
 <body>
     <nav>
-       <%- include('partials/navbar.ejs') %>
+       <%- include('partials/navbar.ejs', {user: "false"}) %>
     </nav>
     <main>
         <h1>
             <%= title %>
-        </h1>    
+        </h1>
+            <%- include("partials/loginForm.ejs") %>
     </main>
     <footer>
         <%- include("partials/footer.ejs") %>

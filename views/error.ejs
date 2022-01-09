@@ -7,12 +7,8 @@
     
 <body>
     <nav>
-        <ul>
-            <li class="nav-link">
-                <a href="/">Home</a>
-            </li>
-        </ul>
-    </nav>
+        <%- include('partials/navbar.ejs') %>
+     </nav>
     <main>
         <h1>
             <%= message %>
@@ -20,17 +16,12 @@
         <h2>
             <%= error.status %>
         </h2>  
-        <pre>
+        <p>
             <%= error.stack %>
-        </pre> 
+        </p> 
     </main>
     <footer>
         <%- include("partials/footer.ejs") %>
     </footer>
 </body>
 </html>
-
-block content 
-    h1= message 
-    h2= error.status 
-    pre #{error.stack}
