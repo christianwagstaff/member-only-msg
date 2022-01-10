@@ -1,12 +1,16 @@
 <div class="message">
     <div class="message-top">
         <div class="message-board">
-            <%= message.board.formatted_name %>
+            <a href=<%= message.board.url %> >
+                b/<%= message.board.name %>
+            </a>
         </div>
         <div class="message-creator">
             Posted By - 
             <% if (user) { %>
-                <%= message.user.name %>
+                <a href=<%= message.user.url %> >
+                    <%= message.user.name %>
+                </a>    
             <% } else { %>
                 Anonymous
             <% }; %>

@@ -17,4 +17,8 @@ BoardSchema.virtual("formatted_name").get(function () {
   return `b/${this.name}`;
 });
 
+BoardSchema.virtual("url").get(function () {
+  return `/b/${this.name}`;
+});
+
 module.exports = mongoose.model("Board", BoardSchema);

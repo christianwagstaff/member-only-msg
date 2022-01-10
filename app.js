@@ -32,6 +32,8 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 // TODO - Set up Routers
 const indexRouter = require("./routes/index");
+const boardRouter = require("./routes/board");
+const userRouter = require("./routes/user");
 
 // TODO - Set up View Engine
 app.set("views", path.join(__dirname, "views"));
@@ -92,6 +94,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Use Routers Initialized above
 app.use("/", indexRouter);
+app.use("/b", boardRouter);
+app.use("/users", userRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -106,7 +110,7 @@ app.use((err, req, res, next) => {
 
   // Render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", { user: req.user ? true : false });
 });
 
 module.exports = app;
