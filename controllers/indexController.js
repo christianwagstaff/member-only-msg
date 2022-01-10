@@ -30,6 +30,7 @@ exports.index = (req, res, next) => {
 exports.login = (req, res) => {
   res.render("login", {
     title: "Log In",
+    user: req.user ? true : false,
   });
 };
 
@@ -37,6 +38,7 @@ exports.login = (req, res) => {
 exports.signup = (req, res) => {
   res.render("signup", {
     title: "Sign Up",
+    user: req.user ? true : false,
   });
 };
 
@@ -44,6 +46,11 @@ exports.signup = (req, res) => {
 exports.logout = (req, res) => {
   req.logout();
   res.redirect("/");
+};
+
+// GET Sumbit
+exports.submit_new = (req, res) => {
+  res.render("newItem", { user: req.user ? true : false });
 };
 
 // POST Login Screen
@@ -86,11 +93,11 @@ exports.post_signup = [
           }
           if (results.member) {
             // email already in use
-            return res.render("signup");
+            return res.render("/signup", { user: req.user ? true : false });
           }
           if (results.displayName) {
             // display name alreay in use
-            return res.render("signup");
+            return res.render("/signup", { user: req.user ? true : false });
           }
           // No member found sign them up
           bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
@@ -109,7 +116,10 @@ exports.post_signup = [
               if (err) {
                 return next(err);
               }
-              res.redirect("/");
+              passport.authenticate("local", {
+                successRedirect: "/",
+                failureRedirect: "/",
+              });
             });
           });
         }

@@ -1,24 +1,27 @@
 const express = require("express");
 const router = express.Router();
 
-const member_controller = require("../controllers/memberController");
+const index_controller = require("../controllers/indexController");
 
 // Get Message Homepage
-router.get("/", member_controller.index);
+router.get("/", index_controller.index);
 
 // GET LogIn Screen
-router.get("/login", member_controller.login);
+router.get("/login", index_controller.login);
 
 // GET Signup Screen
-router.get("/signup", member_controller.signup);
+router.get("/signup", index_controller.signup);
 
 // POST Login
-router.post("/login", member_controller.post_login);
+router.post("/login", index_controller.post_login);
 
 // POST Signup
-router.post("/signup", member_controller.post_signup);
+router.post("/signup", index_controller.post_signup);
 
 // POST Logout
-router.get("/logout", member_controller.logout);
+router.get("/logout", index_controller.logout);
+
+// GET New Message
+router.get("/submit", index_controller.submit_new);
 
 module.exports = router;

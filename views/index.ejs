@@ -6,12 +6,12 @@
 </head>
 <body>
     <nav>
-       <%- include('partials/navbar.ejs') %>
+       <%- include('partials/navbar.ejs', {user}) %>
     </nav>
     <main>
-        <h1>
-            <%= title %>
-        </h1>
+        <% if (user) { %>
+        <%- include('partials/createNew.ejs') %>
+        <% } %>
         <div class="message-container">
             <% for(let message of messages) {%>
             <%- include('partials/message', {message, user}) %>
