@@ -25,7 +25,7 @@ main {
     align-items: center;
 }
 
-nav {
+header {
     width: 100%;
     background-color: var(--color-dark);
     padding: 12px;

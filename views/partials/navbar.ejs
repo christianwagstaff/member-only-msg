@@ -1,21 +1,23 @@
-<ul>
-    <li>
-        <a href="/">Home</a>
-    </li>
-    <div class="nav-list">
+<nav>
+    <ul>
         <li>
-            <% if (typeof user === "undefined") { %>
-                <a href="/login">Log In</a>
-            <% } else if (user) { %>
-                <a href="/logout">Log Out</a>
-            <% } else { %>
-                <a href="/login">Log In</a>
-            <% } %>
+            <a href="/">Home</a>
         </li>
-        <% if (typeof user === "undefined" || !user) { %>
+        <div class="nav-list">
             <li>
-                <a href="/signup">Sign Up</a>
+                <% if (typeof user === "undefined") { %>
+                    <a href="/login">Log In</a>
+                <% } else if (user) { %>
+                    <a href="/logout">Log Out</a>
+                <% } else { %>
+                    <a href="/login">Log In</a>
+                <% } %>
             </li>
-        <% } %>
-    </div>
-</ul>
+            <% if (typeof user === "undefined" || !user) { %>
+                <li>
+                    <a href="/signup">Sign Up</a>
+                </li>
+            <% } %>
+        </div>
+    </ul>
+</nav>
