@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head.ejs'); %>
+    <title>Private Message Board</title>
+</head>
+<body>
+    <header>
+       <%- include('partials/navbar.ejs', {user}) %>
+    </header>
+    <main>
+        <div class="message-container">
+            <% for(let message of messages) {%>
+            <%- include('partials/message', {message, user}) %>
+            <% }; %>
+        </div>
+    </main>
+
+    <footer>
+        <%- include("partials/footer.ejs") %>
+    </footer>
+</body>
+</html>

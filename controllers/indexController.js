@@ -22,7 +22,7 @@ exports.index = (req, res, next) => {
       res.render("index", {
         title: "Message Board",
         messages,
-        user: req.user ? true : false,
+        user: req.user ? req.user : false,
       });
     });
 };

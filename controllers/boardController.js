@@ -1,6 +1,7 @@
-const async = require("async");
+// const async = require("async");
 const { body, validationResult } = require("express-validator");
 
+// eslint-disable-next-line no-unused-vars
 const Member = require("../models/member");
 const Message = require("../models/message");
 const Board = require("../models/board");

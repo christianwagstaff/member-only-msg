@@ -22,4 +22,10 @@ MemberSchema.virtual("url").get(function () {
   return `/users/${this.name}`;
 });
 
+// Add virtual url for icon link
+const imgs = ["bunny", "cat", "cloud", "owl", "penguin"];
+MemberSchema.virtual("iconImg").get(function () {
+  return `/images/${imgs[this.icon]}.png`;
+});
+
 module.exports = mongoose.model("Member", MemberSchema);

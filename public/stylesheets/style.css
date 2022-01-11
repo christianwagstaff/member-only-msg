@@ -52,6 +52,11 @@ nav a {
     text-decoration: none;
 }
 
+.icon {
+    height: 3rem;
+    width: auto;
+}
+
 footer {
     background-color: var(--color-med-dark);
     width: 100%;

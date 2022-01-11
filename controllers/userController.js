@@ -9,11 +9,11 @@ exports.redirect_home = (req, res) => {
 
 // GET Individual User
 exports.get_user_by_id = (req, res, next) => {
-  Member.findOne({ name: req.params.id }).exec((err, member) => {
+  Member.findOne({ name: req.params.id }).exec((err, user) => {
     if (err) {
       return next(err);
     }
-    Message.find({ user: member._id })
+    Message.find({ user: user._id })
       .populate("user", { name: 1 })
       .populate("board", { name: 1 })
       .exec((err, messages) => {
@@ -21,10 +21,12 @@ exports.get_user_by_id = (req, res, next) => {
           return next(err);
         }
         // Succes send messages
-        res.render("index", {
-          title: member.name,
+        res.render("userScreen", {
+          title: user.name,
           messages,
-          user: req.user ? true : false,
+          user: req.user ? req.user : false,
+          isCurrentUser:
+            req.user._id.toString() === user._id.toString() ? true : false,
         });
       });
   });

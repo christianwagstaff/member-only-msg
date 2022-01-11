@@ -1,16 +1,16 @@
 <nav>
-    <ul>
+    <ul class="nav-list">
         <li>
             <a href="/">Home</a>
         </li>
         <div class="nav-list">
             <li>
-                <% if (typeof user === "undefined") { %>
+                <% if (typeof user === "undefined" || !user) { %>
                     <a href="/login">Log In</a>
-                <% } else if (user) { %>
-                    <a href="/logout">Log Out</a>
                 <% } else { %>
-                    <a href="/login">Log In</a>
+                    <a href=<%- `/users/${user.name}` %>>
+                        <img class="icon" alt="Users Icon" src=<%= user.iconImg %>>
+                    </a>
                 <% } %>
             </li>
             <% if (typeof user === "undefined" || !user) { %>
