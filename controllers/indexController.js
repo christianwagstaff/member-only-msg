@@ -40,6 +40,7 @@ exports.signup = (req, res) => {
   res.render("signup", {
     title: "Sign Up",
     user: req.user ? true : false,
+    errors: {},
   });
 };
 
@@ -81,9 +82,25 @@ exports.post_signup = [
     .isEmail()
     .escape(),
   body("password", "Password is Required").exists(),
+  body("password-confirmation").custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error("Password confirmation does not match password");
+    }
+    // Passwords do match so return true
+    return true;
+  }),
+
   (req, res, next) => {
     // Extract the validation errors
     const errors = validationResult(req);
+    let member = new Member({
+      name: req.body.displayName,
+      username: req.body.username,
+      password: req.body.password,
+      activeMember: false,
+      icon: 1,
+      dateJoined: new Date(),
+    });
     if (!errors.isEmpty()) {
       // There are errors. Send the data back for correction
       return res.status(400).json({ errors: errors.array() });
@@ -92,7 +109,7 @@ exports.post_signup = [
       // Check if a memeber alredy exists with that email or displayname
       async.parallel(
         {
-          member: (callback) =>
+          email: (callback) =>
             Member.findOne({ username: req.body.username }).exec(callback),
           displayName: (callback) =>
             Member.findOne({ name: req.body.displayName }).exec(callback),
@@ -101,39 +118,54 @@ exports.post_signup = [
           if (err) {
             return next(err);
           }
-          if (results.member) {
+          if (results.email) {
             // email already in use
-            return res.render("/signup", { user: req.user ? true : false });
+            console.log("Email in use");
+            console.log(results.email);
+            res.render("signup", {
+              user: req.user ? req.user : false,
+              title: "Sign Up",
+              errors: {
+                location: "username",
+                value: "Email Already In Use",
+              },
+            });
+            return;
           }
           if (results.displayName) {
+            console.log("Email in use");
+
             // display name alreay in use
-            return res.render("/signup", { user: req.user ? true : false });
+            res.render("signup", {
+              user: req.user ? req.user : false,
+              title: "Sign Up",
+              error: {
+                location: "displayName",
+                value: "Username Already In Use",
+              },
+            });
+            return;
           }
           // No member found sign them up
           bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
             if (err) {
               return next(err);
             }
-            // eslint-disable-next-line no-unused-vars
-            const member = new Member({
-              name: req.body.name,
-              username: req.body.username,
-              password: hashedPassword,
-              activeMember: false,
-              icon: 1,
-              dateJoined: new Date(),
-            }).save((err) => {
+            member.password = hashedPassword;
+            member.save((err) => {
               if (err) {
                 return next(err);
               }
-              passport.authenticate("local", {
-                successRedirect: "/",
-                failureRedirect: "/",
-              });
+              next();
             });
           });
         }
       );
     }
   },
+  // User Created, Authroize the user and redirect
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/",
+  }),
 ];

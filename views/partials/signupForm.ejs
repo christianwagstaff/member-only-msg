@@ -1,9 +1,21 @@
 <form action="" method="post">
     <label for="displayName">Display Name</label>
     <input type="text" name="displayName" required>
+    <% if (typeof errors !== 'undefined' && errors.location === 'displayName' ) { %>
+        <p class="error">
+            <%= errors.value %> 
+        </p>
+    <% } %>
     <label for="username">Email</label>
     <input type="email" name="username" required>
+    <% if (typeof errors !== 'undefined' && errors.location === 'username' ) { %>
+        <p class="error">
+            <%= errors.value %> 
+        </p>
+    <% } %>
     <label for="password">Password</label>
     <input type="password" name="password" required>
+    <label for="password-confirmation">Confirm Password</label>
+    <input type="password" name="password-confirmation" required>
     <input type="submit" value="Sign Up" class="btn">
 </form>

@@ -13,6 +13,12 @@
                     </a>
                 <% } %>
             </li>
+            <% if (typeof isCurrentUser !== 'undefined') { %>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+            <% } %>
+
             <% if (typeof user === "undefined" || !user) { %>
                 <li>
                     <a href="/signup">Sign Up</a>

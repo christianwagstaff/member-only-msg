@@ -13,9 +13,15 @@
                 </a>    
             <% } else { %>
                 Anonymous
-            <% }; %>
-                
+            <% }; %> 
         </div>
+        <% if (user) { %>
+            <div class="message-creator">
+                Posted On - <%= message.formatted_date %>
+            </div>
+        <% } %>
+            
+
     </div>
     <div class="message-bottom">
         <div class="columns">
