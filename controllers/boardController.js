@@ -88,3 +88,45 @@ exports.post_to_board = [
     }
   },
 ];
+
+// POST new board
+exports.post_new_board = [
+  // Validate and Sanitize input
+  body("new_board", "Board Name Required").trim().isLength({ min: 1 }).escape(),
+
+  //Process Request after validation
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const board = new Board({
+      name: req.body.new_board,
+      creator: req.session.passport.user,
+      createdDate: new Date(),
+    });
+
+    // Check for validation errors
+    if (!errors.isEmpty()) {
+      // There are errors, send data back for correction
+      res.status(400).json({ board, errors: errors.array() });
+      return;
+    }
+    // Data is validated - check to see if board name already exists
+    Board.findOne({ name: req.body.new_board }).exec((err, foundBoard) => {
+      if (err) {
+        return next(err);
+      }
+      if (foundBoard) {
+        // Board Name already exists, redirect to that board
+        res.redirect(foundBoard.url);
+      }
+      // save board
+      board.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        // Save Successful - Redirect to new Board
+        res.redirect(board.url);
+      });
+    });
+  },
+];

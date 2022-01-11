@@ -11,6 +11,7 @@
     <main>
         <% if (isCurrentUser) { %>
             <%- include('partials/createNew.ejs') %>
+            <%- include('partials/createNewBoard.ejs') %>
             <% } %>    
         <div class="message-container">
             <% for(let message of messages) {%>

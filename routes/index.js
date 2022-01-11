@@ -3,6 +3,7 @@ const router = express.Router();
 
 const index_controller = require("../controllers/indexController");
 const board_controller = require("../controllers/boardController");
+const authentication_controller = require("../controllers/authenticationController");
 
 // Get Message Homepage
 router.get("/", index_controller.index);
@@ -23,9 +24,24 @@ router.post("/signup", index_controller.post_signup);
 router.get("/logout", index_controller.logout);
 
 // GET New Message
-router.get("/submit", index_controller.submit_new);
+router.get(
+  "/submit",
+  authentication_controller.isAuth,
+  index_controller.submit_new
+);
 
 //Post Submit new message
-router.post("/submit", board_controller.post_to_board);
+router.post(
+  "/submit/message",
+  authentication_controller.isAuth,
+  board_controller.post_to_board
+);
+
+// Post Submit new board
+router.post(
+  "/submit/board",
+  authentication_controller.isAuth,
+  board_controller.post_new_board
+);
 
 module.exports = router;
