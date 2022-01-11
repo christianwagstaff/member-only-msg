@@ -9,9 +9,12 @@
        <%- include('partials/navbar.ejs', {user}) %>
     </header>
     <main>
+        <% if (isCurrentUser) { %>
+            <%- include('partials/createNew.ejs') %>
+            <% } %>    
         <div class="message-container">
             <% for(let message of messages) {%>
-            <%- include('partials/message', {message, user}) %>
+            <%- include('partials/message', {message, user, isCurrentUser}) %>
             <% }; %>
         </div>
     </main>

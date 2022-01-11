@@ -57,7 +57,7 @@ exports.submit_new = (req, res, next) => {
     }
     // Successful, render page
     res.render("newItem", {
-      user: req.user ? true : false,
+      user: req.user ? req.user : false,
       boards,
     });
   });

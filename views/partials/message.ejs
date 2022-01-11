@@ -1,4 +1,4 @@
-<div class="message">
+<div class="message" data-id=<%= message._id %>>
     <div class="message-top">
         <div class="message-board">
             <a href=<%= message.board.url %> >
@@ -18,11 +18,13 @@
         </div>
     </div>
     <div class="message-bottom">
-        <h3 class="message-title">
-            <%= message.title %>
-        </h3>
-        <p class="message-message">
-            <%= message.message %>
-        </p>    
+        <div class="columns">
+            <h3 class="message-title">
+                <%= message.title %>
+            </h3>
+            <p class="message-message">
+                <%= message.message %>
+            </p> 
+        </div> 
     </div>
 </div>

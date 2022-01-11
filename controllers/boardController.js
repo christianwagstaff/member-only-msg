@@ -29,7 +29,7 @@ exports.get_board_by_id = (req, res, next) => {
         res.render("index", {
           title: board.name,
           messages,
-          user: req.user ? true : false,
+          user: req.user ? req.user : false,
         });
       });
   });

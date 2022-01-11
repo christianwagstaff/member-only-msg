@@ -1,5 +1,6 @@
 const Member = require("../models/member");
 const Message = require("../models/message");
+// eslint-disable-next-line no-unused-vars
 const Board = require("../models/board");
 
 // GET Index page
