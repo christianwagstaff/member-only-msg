@@ -90,9 +90,10 @@ form {
     background-color: var(--color-dark);
 }
 
-input {
+input, textarea, select {
     padding: 12px;
     border-radius: 12px;
+    border: 1px solid var(--color-dark);
 }
 
 .message-container {

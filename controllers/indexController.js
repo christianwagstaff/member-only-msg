@@ -13,6 +13,7 @@ exports.index = (req, res, next) => {
   Message.find()
     .populate("user", { name: 1 })
     .populate("board", { name: 1 })
+    .sort({ createdDate: -1 })
     .exec((err, messages) => {
       if (err) {
         return next(err);
@@ -49,8 +50,17 @@ exports.logout = (req, res) => {
 };
 
 // GET Sumbit
-exports.submit_new = (req, res) => {
-  res.render("newItem", { user: req.user ? true : false });
+exports.submit_new = (req, res, next) => {
+  Board.find({}, { name: 1 }).exec((err, boards) => {
+    if (err) {
+      return next(err);
+    }
+    // Successful, render page
+    res.render("newItem", {
+      user: req.user ? true : false,
+      boards,
+    });
+  });
 };
 
 // POST Login Screen
