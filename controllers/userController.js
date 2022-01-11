@@ -32,3 +32,20 @@ exports.get_user_by_id = (req, res, next) => {
       });
   });
 };
+
+// POST Become Active Member
+exports.become_active_member = (req, res, next) => {
+  if (req.body.secret === process.env.SECRET_PASSWORD) {
+    // Secret password matches
+    // Update user to be active
+    const update = { activeMember: true };
+    Member.findByIdAndUpdate(req.session.passport.user, update).exec(
+      (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(result.url);
+      }
+    );
+  }
+};

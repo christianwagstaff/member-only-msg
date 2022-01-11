@@ -14,4 +14,11 @@ router.get(
   user_controller.get_user_by_id
 );
 
+// POST Secret Password to become active member
+router.post(
+  "/activate",
+  authentication_controller.isAuth,
+  user_controller.become_active_member
+);
+
 module.exports = router;

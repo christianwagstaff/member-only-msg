@@ -7,7 +7,7 @@
         </div>
         <div class="message-creator">
             Posted By - 
-            <% if (user) { %>
+            <% if (user.activeMember) { %>
                 <a href=<%= message.user.url %> >
                     <%= message.user.name %>
                 </a>    
@@ -15,7 +15,7 @@
                 Anonymous
             <% }; %> 
         </div>
-        <% if (user) { %>
+        <% if (user.activeMember) { %>
             <div class="message-creator">
                 Posted On - <%= message.formatted_date %>
             </div>
